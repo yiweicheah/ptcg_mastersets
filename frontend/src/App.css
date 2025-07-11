@@ -1,0 +1,60 @@
+/********* App ************/
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.app-div {
+  background-color: #f9f9f9;
+}
+
+.app-body {
+  height: 100%;
+  width: 100%;
+  min-height: calc(100vh - 64px);
+  margin: auto;
+  position: relative;
+}
+
+.login-loading-div {
+  width: 100%;
+  height: calc(100vh - 64px);
+  background-color: #f9f9f9;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.login-loading-img {
+  width: 150px;
+  margin-bottom: 16px;
+}
+
+/********* Comp ************/
+.comp-div {
+  height: 100%;
+}
+
+/* login */
+.comp-div.login {
+  width: 33%;
+  height: 100%;
+  min-height: calc(100vh - 64px);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.comp-title.login {
+  font-size: 40px;
+}
+
+.comp-txt.login {
+  font-size: 20px;
+  margin: 16px 0 16px 0;
+}

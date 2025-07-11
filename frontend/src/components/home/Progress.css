@@ -1,0 +1,46 @@
+.comp-div.dex-progress {
+  max-width: 700px;
+  margin: auto;
+}
+
+.dex-title-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.to-dex-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: auto;
+  font-size: 30px;
+}
+
+.dex-progress-bar {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.dex-progress-grid {
+  margin-top: 16px;
+}
+
+.dex-progress-card {
+  cursor: pointer;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.dex-progress-card:hover {
+  transform: scale(1.1);
+}
+
+.gen-region-img {
+  width: 100%;
+  aspect-ratio: 2/1;
+  object-fit: cover;
+}
+
+.dex-progress-card-txt {
+  padding: 0 5px 10px 5px;
+}

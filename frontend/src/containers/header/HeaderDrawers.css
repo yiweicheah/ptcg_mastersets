@@ -1,0 +1,57 @@
+.cont-div.nav {
+  padding: 10px;
+}
+
+.nav-link-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  padding: 20px 10px 20px 10px;
+  font-size: 20px;
+  color: white;
+  width: 100%;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.nav-link-div:hover {
+  background-color: white;
+  color: black;
+}
+
+.nav-link-icon {
+  margin-right: 5px;
+}
+
+.cont-div.user-drawer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-photo-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: white;
+  width: 50%;
+  aspect-ratio: 1/1;
+  padding: 10px;
+  overflow: hidden;
+  margin: auto;
+}
+
+.user-drawer-name {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 16px;
+}
+
+.logout-btn {
+  margin-top: 16px;
+  font-weight: bold;
+}

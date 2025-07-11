@@ -1,0 +1,34 @@
+.login-first-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.comp-div.login {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.login-box {
+  background-color: #f9f9f9;
+  padding: 40px 20px 40px 20px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.login-page-btn {
+  margin-top: 16px;
+}
+
+.login-btn {
+  color: blue;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
