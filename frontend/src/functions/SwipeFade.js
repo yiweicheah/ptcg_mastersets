@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 const SwipeFade = ({
   children,
   swipeDirection = null,
-  key,
+  key = null,
   delay = 0,
   duration = 0.5,
 }) => {

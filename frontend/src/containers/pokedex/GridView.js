@@ -23,6 +23,7 @@ const GridView = ({ openModal, pokedexCollection, modalOpened }) => {
   const [pokemonsToShow, setPokemonsToShow] = useState([]);
   const [searchPokemon, setSearchPokemon] = useState(null);
   const [page, setPage] = useState(1);
+  const [prevPage, setPrevPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [swipeDirection, setSwipeDirection] = useState(null);
 
@@ -82,6 +83,16 @@ const GridView = ({ openModal, pokedexCollection, modalOpened }) => {
       const currentPage = page;
       setPage(currentPage);
     }
+  };
+
+  //handler for page change
+  const handlePageChg = (e) => {
+    if (page < e) {
+      setSwipeDirection("left");
+    } else if (page > e) {
+      setSwipeDirection("right");
+    }
+    setPage(e);
   };
 
   //handler for page change when swiping on mobile view
@@ -153,13 +164,13 @@ const GridView = ({ openModal, pokedexCollection, modalOpened }) => {
           <Pagination
             total={totalPages}
             value={page}
-            onChange={(e) => setPage(e)}
+            onChange={(e) => handlePageChg(e)}
             withPages={false}
             withEdges
           />
         </Group>
       </Flex>
-      <div {...handleSwipe}>
+      <div {...handleSwipe} style={{ overflow: "hidden" }}>
         <SwipeFade swipeDirection={swipeDirection} key={page}>
           <Grid gutter="sm" className="grid-view-grid">
             {pokemonsToShow?.map((pokemon, i) => (
@@ -169,35 +180,33 @@ const GridView = ({ openModal, pokedexCollection, modalOpened }) => {
                 className="grid-view-col"
                 onClick={() => openModal(pokemon)}
               >
-                <FadeIn duration={1}>
-                  {pokedexCollection.hasOwnProperty(pokemon.id) ? (
-                    <div className="grid-col-div">
-                      <img
-                        src={pokedexCollection[pokemon.id]?.cardImg}
-                        alt={pokemon.id}
-                        className="grid-card"
-                      />
-                      <div className="grid-txt-div">
-                        <Text className="grid-txt">
-                          #{pokemon.id} {pokemon.name}
-                        </Text>
-                      </div>
+                {pokedexCollection.hasOwnProperty(pokemon.id) ? (
+                  <div className="grid-col-div">
+                    <img
+                      src={pokedexCollection[pokemon.id]?.cardImg}
+                      alt={pokemon.id}
+                      className="grid-card"
+                    />
+                    <div className="grid-txt-div">
+                      <Text className="grid-txt">
+                        #{pokemon.id} {pokemon.name}
+                      </Text>
                     </div>
-                  ) : (
-                    <div className="grid-col-div not-added">
-                      <img
-                        src={`https://res.cloudinary.com/dwectnni1/image/upload/v1729145737/TimmyCards/Pokemon/Sprites/${pokemon.id}.png`}
-                        alt={pokemon.name}
-                        className="grid-sprite"
-                      />
-                      <div className="grid-txt-div">
-                        <Text className="grid-txt">
-                          #{pokemon.id} {pokemon.name}
-                        </Text>
-                      </div>
+                  </div>
+                ) : (
+                  <div className="grid-col-div not-added">
+                    <img
+                      src={`https://res.cloudinary.com/dwectnni1/image/upload/v1729145737/TimmyCards/Pokemon/Sprites/${pokemon.id}.png`}
+                      alt={pokemon.name}
+                      className="grid-sprite"
+                    />
+                    <div className="grid-txt-div">
+                      <Text className="grid-txt">
+                        #{pokemon.id} {pokemon.name}
+                      </Text>
                     </div>
-                  )}
-                </FadeIn>
+                  </div>
+                )}
               </Grid.Col>
             ))}
           </Grid>
