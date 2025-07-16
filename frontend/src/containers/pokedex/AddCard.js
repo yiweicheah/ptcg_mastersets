@@ -3,6 +3,7 @@ import { fbGet, fbUpdate, tcgApiGetCards } from "../../services/content";
 import { Loader } from "@mantine/core";
 import "./Pokedex.css";
 import { IconPokeball, IconTrash } from "@tabler/icons-react";
+import FadeIn from "../../functions/FadeIn";
 
 const AddCard = ({
   selectedPokemon,
@@ -118,13 +119,15 @@ const AddCard = ({
               }
               color="#e63946"
             />
-            <img
-              src={card.images.small}
-              alt=""
-              style={{ objectFit: "contain", width: "150px" }}
-              onClick={() => handleCardClick(card)}
-              className="add-img"
-            />
+            <FadeIn duration={1}>
+              <img
+                src={card.images.small}
+                alt=""
+                style={{ objectFit: "contain", width: "150px" }}
+                onClick={() => handleCardClick(card)}
+                className="add-img"
+              />
+            </FadeIn>
           </div>
         ))}
       </div>

@@ -58,7 +58,7 @@ const Pokedex = ({
     grid: (
       <GridView
         openModal={openModal}
-        closeModal={closeModal}
+        modalOpened={modalOpened}
         pokedexCollection={pokedexCollection}
       />
     ),
@@ -71,6 +71,7 @@ const Pokedex = ({
         onClose={closeModal}
         title="Add Card to Collection"
         size="100%"
+        lockScroll
       >
         <AddCard
           selectedPokemon={selectedPokemon}

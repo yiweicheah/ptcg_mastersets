@@ -12,22 +12,28 @@ import {
   Select,
   Text,
 } from "@mantine/core";
+import { useSwipeable } from "react-swipeable";
 
 import "./Pokedex.css";
+import FadeIn from "../../functions/FadeIn";
+import SwipeFade from "../../functions/SwipeFade";
 
-const GridView = ({ openModal, pokedexCollection }) => {
+const GridView = ({ openModal, pokedexCollection, modalOpened }) => {
   const [gridSize, setGridSize] = useState("3");
   const [pokemonsToShow, setPokemonsToShow] = useState([]);
   const [searchPokemon, setSearchPokemon] = useState(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [swipeDirection, setSwipeDirection] = useState(null);
 
+  //get total pages
   useEffect(() => {
     const total = Math.ceil(pokedex.length / (3 * gridSize));
 
     setTotalPages(total);
   }, [gridSize]);
 
+  //set page content according to page size
   useEffect(() => {
     if (gridSize === "3") {
       const toShow = pokedex.slice((page - 1) * 9, page * 9);
@@ -44,6 +50,7 @@ const GridView = ({ openModal, pokedexCollection }) => {
     }
   }, [page, gridSize, totalPages]);
 
+  //set select data for all pokemon
   let searchData = [];
   pokedex.forEach((pokemon) => {
     const dataToPush = {
@@ -54,6 +61,7 @@ const GridView = ({ openModal, pokedexCollection }) => {
     searchData.push(dataToPush);
   });
 
+  //change handler for grid size change
   const handleSizeChg = (e) => {
     setGridSize(e);
     if (searchPokemon) {
@@ -64,6 +72,7 @@ const GridView = ({ openModal, pokedexCollection }) => {
     }
   };
 
+  //handler for search function
   const handleSearch = (e) => {
     setSearchPokemon(e);
     if (e) {
@@ -74,6 +83,24 @@ const GridView = ({ openModal, pokedexCollection }) => {
       setPage(currentPage);
     }
   };
+
+  //handler for page change when swiping on mobile view
+  const handleSwipe = useSwipeable({
+    onSwipedLeft: () => {
+      if (!modalOpened && page < totalPages) {
+        setPage((p) => p + 1);
+        setSwipeDirection("left");
+      }
+    },
+    onSwipedRight: () => {
+      if (!modalOpened && page > 1) {
+        setPage((p) => p - 1);
+        setSwipeDirection("right");
+      }
+    },
+    trackTouch: true,
+    trackMouse: false,
+  });
 
   return (
     <div className="cont-div grid-view">
@@ -132,44 +159,50 @@ const GridView = ({ openModal, pokedexCollection }) => {
           />
         </Group>
       </Flex>
-      <Grid gutter="sm" className="grid-view-grid">
-        {pokemonsToShow?.map((pokemon, i) => (
-          <Grid.Col
-            key={i}
-            span={gridSize === "3" ? 4 : 3}
-            className="grid-view-col"
-            onClick={() => openModal(pokemon)}
-          >
-            {pokedexCollection.hasOwnProperty(pokemon.id) ? (
-              <div className="grid-col-div">
-                <img
-                  src={pokedexCollection[pokemon.id]?.cardImg}
-                  alt={pokemon.id}
-                  className="grid-card"
-                />
-                <div className="grid-txt-div">
-                  <Text className="grid-txt">
-                    #{pokemon.id} {pokemon.name}
-                  </Text>
-                </div>
-              </div>
-            ) : (
-              <div className="grid-col-div not-added">
-                <img
-                  src={`https://res.cloudinary.com/dwectnni1/image/upload/v1729145737/TimmyCards/Pokemon/Sprites/${pokemon.id}.png`}
-                  alt={pokemon.name}
-                  className="grid-sprite"
-                />
-                <div className="grid-txt-div">
-                  <Text className="grid-txt">
-                    #{pokemon.id} {pokemon.name}
-                  </Text>
-                </div>
-              </div>
-            )}
-          </Grid.Col>
-        ))}
-      </Grid>
+      <div {...handleSwipe}>
+        <SwipeFade swipeDirection={swipeDirection} key={page}>
+          <Grid gutter="sm" className="grid-view-grid">
+            {pokemonsToShow?.map((pokemon, i) => (
+              <Grid.Col
+                key={i}
+                span={gridSize === "3" ? 4 : 3}
+                className="grid-view-col"
+                onClick={() => openModal(pokemon)}
+              >
+                <FadeIn duration={1}>
+                  {pokedexCollection.hasOwnProperty(pokemon.id) ? (
+                    <div className="grid-col-div">
+                      <img
+                        src={pokedexCollection[pokemon.id]?.cardImg}
+                        alt={pokemon.id}
+                        className="grid-card"
+                      />
+                      <div className="grid-txt-div">
+                        <Text className="grid-txt">
+                          #{pokemon.id} {pokemon.name}
+                        </Text>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="grid-col-div not-added">
+                      <img
+                        src={`https://res.cloudinary.com/dwectnni1/image/upload/v1729145737/TimmyCards/Pokemon/Sprites/${pokemon.id}.png`}
+                        alt={pokemon.name}
+                        className="grid-sprite"
+                      />
+                      <div className="grid-txt-div">
+                        <Text className="grid-txt">
+                          #{pokemon.id} {pokemon.name}
+                        </Text>
+                      </div>
+                    </div>
+                  )}
+                </FadeIn>
+              </Grid.Col>
+            ))}
+          </Grid>
+        </SwipeFade>
+      </div>
       {/* <Pagination
         total={totalPages}
         siblings={1}

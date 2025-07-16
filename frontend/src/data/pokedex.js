@@ -5129,7 +5129,7 @@ export const pokedex = [
   },
   {
     id: 1024,
-    name: "Teragapos",
+    name: "Terapagos",
     gen: 9,
   },
   {
