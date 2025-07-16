@@ -13,7 +13,7 @@ const SwipeFade = ({
       initial={{ x: swipeDirection === "left" ? 300 : -300, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: swipeDirection === "left" ? -300 : 300, opacity: 0 }}
-      transition={{ duration, delay, ease: "easeOut" }}
+      transition={{ duration, delay, ease: [0.25, 0.8, 0.25, 1] }}
     >
       {children}
     </motion.div>
